@@ -84,7 +84,7 @@ abstract class SensorListenService(
      * @see Sensor.TYPE_ACCELEROMETER
      * @see Sensor.TYPE_STEP_COUNTER
      */
-    abstract val detectedSensor: Sensor
+    abstract val detectedSensor: Sensor?
 
     /**
      * the current steps data of the user
@@ -108,14 +108,14 @@ abstract class SensorListenService(
 
     val stepsSensorInfo: WritableMap
         get() = Arguments.createMap().apply {
-            putNumber("minDelay", detectedSensor.minDelay)
-            putNumber("maxDelay", detectedSensor.maxDelay)
-            putString("name", detectedSensor.name)
-            putString("vendor", detectedSensor.vendor)
-            putNumber("power", detectedSensor.power)
-            putNumber("resolution", detectedSensor.resolution)
-            putBoolean("wakeUpSensor", detectedSensor.isWakeUpSensor)
-            putBoolean("additionalInfoSupported", detectedSensor.isAdditionalInfoSupported)
+            putNumber("minDelay", detectedSensor?.minDelay)
+            putNumber("maxDelay", detectedSensor?.maxDelay)
+            putString("name", detectedSensor?.name)
+            putString("vendor", detectedSensor?.vendor)
+            putNumber("power", detectedSensor?.power)
+            putNumber("resolution", detectedSensor?.resolution)
+            putBoolean("wakeUpSensor", detectedSensor?.isWakeUpSensor)
+            putBoolean("additionalInfoSupported", detectedSensor?.isAdditionalInfoSupported)
         }
 
     /**
@@ -211,7 +211,7 @@ abstract class SensorListenService(
         if (event?.sensor == null ||
             event.sensor != detectedSensor ||
             event.sensor.type != sensorType ||
-            event.sensor.type != detectedSensor.type
+            event.sensor.type != detectedSensor?.type
         ) {
             return
         }
